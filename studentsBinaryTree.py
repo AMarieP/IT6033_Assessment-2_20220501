@@ -3,7 +3,7 @@ def GenerateID(studentID, fname, lname):
             studentID = fname[0:3] + lname[0:3]
             return studentID
 
-#Individual Student Reord
+#Individual Student Record
 class Student:
     def __init__(self, fname, lname, email, campus, studentID):
         self.fname = fname
@@ -14,7 +14,7 @@ class Student:
 
 
 
-#the list of all the students
+#Student in a Binary Tree
 class Students():
     def __init__(self) -> None:
         self.students = []
