@@ -1,3 +1,5 @@
+# String Bubble Sort
+
 def bubbleSort(arr): 
     n = len(arr) 
 
@@ -22,11 +24,10 @@ def bubbleSort(arr):
         if swapped == False: 
             break
         
-# Driver code to test above 
-arr = [64, 34, 25, 12, 22, 11, 90] 
+# Test Code
+arr = ['Amy', 'Ethan', 'Amelia', 'Josiah', 'Melanie', 'Joanne', 'Dolly'] 
 
 bubbleSort(arr) 
 
 print ("Sorted array :") 
-for i in range(len(arr)): 
-    print ("%d" %arr[i],end=" ") 4
+print(arr)

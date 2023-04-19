@@ -5,9 +5,9 @@ import datetime
 today = datetime.date.today()
 year = str(today.year)
 
-shopping_list = "smallDB.txt"
+studentTable = "smallDB.txt"
 results = []
-with open(shopping_list) as f:
+with open(studentTable) as f:
     line = f.readline()
     while line:
         results.append(line.strip().split(","))
