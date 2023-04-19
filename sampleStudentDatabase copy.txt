@@ -1,4 +1,3 @@
-firstName,lastName,emailAddress,campus
 Emily,Smith,emily.smith@example.com,Auckland
 William,Jones,william.jones@example.com,Wellington
 Sophia,Wilson,sophia.wilson@example.com,Christchurch
