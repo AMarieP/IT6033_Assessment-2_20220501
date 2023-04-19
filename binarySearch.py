@@ -3,7 +3,8 @@
 def binarySearch(arr, beg, end, target):
     
     #Find midpoint
-    mid = beg + (end - 1) //2
+    mid = beg + (end - beg) //2
+    print(mid)
     
     if end >= beg:
         if arr[mid] == target:
@@ -15,7 +16,8 @@ def binarySearch(arr, beg, end, target):
     else: 
         return 'No Such Element Exists'
 
-x = [1,2,3,4,5,6,7,8,9,10]
+x = ['Ally', 'Bob', 'Penelope', 'Queenie', 'Serah', 'Zelot']
+# x = [1,2,3,4,5,6]
 
-print(binarySearch(x, 0, len(x)-1, 99))
+print(binarySearch(x, 0, len(x)-1, 'Queenie'))
     
