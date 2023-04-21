@@ -163,14 +163,14 @@ SEARCH STUDENT BY LAST NAME (L)
     userChoice = Prompt.ask("[bold green]Please make a selection:  ", choices=['I', 'F', 'L'])
     index = 0
     if userChoice == 'I':
-        searchTarget = Prompt.ask("[bold green]Please input the ID to Search:  ")
-        index = LinearSearch(students, len(students)-1, Student.GetStudentID, searchTarget)
+        searchTarget = Prompt.ask("[bold green]Please input the ID to Search")
+        index = LinearSearch(students, len(students), Student.GetStudentID, searchTarget)
     elif userChoice == 'F':
-        searchTarget = Prompt.ask("[bold green]Please input the First Name to Search:  ")
-        index = LinearSearch(students, len(students)-1, Student.GetFirstName, searchTarget)
+        searchTarget = Prompt.ask("[bold green]Please input the First Name to Search")
+        index = LinearSearch(students, len(students), Student.GetFirstName, searchTarget)
     elif userChoice == 'L':
-        searchTarget = Prompt.ask("[bold green]Please input the Last Name to Search:  ")
-        index = LinearSearch(students, len(students)-1, Student.GetLastName, searchTarget)
+        searchTarget = Prompt.ask("[bold green]Please input the Last Name to Search")
+        index = LinearSearch(students, len(students), Student.GetLastName, searchTarget)
     print("[bold magenta]Your Record is: [/bold magenta]" + str(IndexIsValid(students, index)))
     GoAgain(SearchStudents, 'SEARCH')
 

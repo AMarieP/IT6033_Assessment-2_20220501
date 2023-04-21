@@ -139,7 +139,7 @@ SHOW ALL STUDENTS BY CAMPUS (C)
         """, justify='center', style='blue')
     menu = Panel(options, title="[bold green]STUDENTS SHOW MENU", subtitle='[i magenta]Shown in Ascending Order')
     print(menu)
-    userChoice = Prompt.ask("[bold green]Please make a selection ", choices=['I', 'F', 'L', 'C'])
+    userChoice = Prompt.ask("[bold green]Please make a selection", choices=['I', 'F', 'L', 'C'])
     if userChoice == 'I':
         QuickSort(students, Student.GetStudentID, 0, len(students)-1)
     elif userChoice == 'F':
@@ -160,16 +160,16 @@ SEARCH STUDENT BY LAST NAME (L)
         """, justify='center', style='blue')
     menu = Panel(options, title="[bold green]STUDENT SEARCH MENU")
     print(menu)
-    userChoice = Prompt.ask("[bold green]Please make a selection:  ", choices=['I', 'F', 'L'])
+    userChoice = Prompt.ask("[bold green]Please make a selection", choices=['I', 'F', 'L'])
     index = 0
     if userChoice == 'I':
-        searchTarget = Prompt.ask("[bold green]Please input the ID to Search:  ")
+        searchTarget = Prompt.ask("[bold green]Please input the ID to Search")
         index = BinarySearch(students, 0, len(students)-1, searchTarget, Student.GetStudentID)
     elif userChoice == 'F':
-        searchTarget = Prompt.ask("[bold green]Please input the First Name to Search:  ")
+        searchTarget = Prompt.ask("[bold green]Please input the First Name to Search")
         index = BinarySearch(students, 0, len(students)-1, searchTarget, Student.GetFirstName)
     elif userChoice == 'L':
-        searchTarget = Prompt.ask("[bold green]Please input the Last Name to Search:  ")
+        searchTarget = Prompt.ask("[bold green]Please input the Last Name to SearchS")
         BinarySearch(students, 0, len(students)-1, searchTarget, Student.GetLastName)
     print("[bold magenta]Your Record is: [/bold magenta]" + str(IndexIsValid(students, index)))
     GoAgain(SearchStudents, 'SEARCH')

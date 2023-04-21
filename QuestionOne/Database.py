@@ -7,7 +7,7 @@ today = datetime.date.today()
 year = str(today.year)
 
 #Reads the txt file and turns to dataframe
-studentTable = "databasefiles/sampleStudentDatabase.txt"
+studentTable = "databasefiles/smallDB.txt"
 
 results = []
 with open(studentTable) as f:

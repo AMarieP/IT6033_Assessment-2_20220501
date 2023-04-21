@@ -5,4 +5,4 @@ def LinearSearch(array, length, key, target):
     for i in range(0, length):
         if (key(array[i]) == target):
             return i
-        return -1
+    return -1

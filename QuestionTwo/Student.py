@@ -21,6 +21,7 @@ class Student:
         self.email = email
         self.campus = campus
         self.studentID = GenerateID(studentID, self.fname, self.lname)
+        self.courses = []
     
     def __repr__(self):
          return '\n[blue]Student ID: ' + self.studentID + '\nFirst Name: ' + self.fname + '\nLast Name: ' + self.lname + '\nEmail: ' + self.email + '\nCampus: ' + self.campus
@@ -39,12 +40,16 @@ class Student:
     
     def GetStudentID(self):
         return self.studentID
-
-#Extend Student Class to Add Teaching
-
-class Courses(Student):
-    def __init__(self):
-        self.courses = []
+    
+    def PrintCourses(self):
+        for x in self.courses:
+            print(x)
 
     def AddToCourse(self, course):
-        self.names.append(course)
+        for x in self.courses:
+            if x == course:
+                print("The Student Already is Enrolled")
+                return
+        self.courses.append(course)
+        print('Student has Been Added')
+

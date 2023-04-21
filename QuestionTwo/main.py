@@ -2,9 +2,10 @@ from LinearSearch import LinearSearch
 from QuickSort import QuickSort
 from Student import Student
 from Database import students, UpdateTxt, studentTable, myTableData, ToDataframe
-from Teaching import Teaching
-from Teacher import Teacher
+from Teaching import Teaching, AddCourseToTeacher
+from Teacher import Teacher, teachers
 from Course import Course
+from Validator import IndexIsValid, InputIsValid, CampusIsValid, GoAgain
 
 #Rich is used to Style things in Terminal
 from rich import print
@@ -26,51 +27,6 @@ def Main():
     if running == True:
         running = MainMenu()
 
-#Check if returned Index is Valid
-def IndexIsValid(array, index):
-    if index == -1:
-        return "No Such Record Exists"
-    else:
-        return array[index]
-
-#Check if Input is Valid
-def InputIsValid(field):
-    userInput = Prompt.ask("[bold green]" + field)
-    if userInput == '':
-        print("[bold green]Please enter a Valid " + field)
-        InputIsValid(field)
-    else:
-        return userInput
-
-#Check if Campus is Valid
-def CampusIsValid():
-    campusOptions = Text("""Please Choose Campus:
-Wellington (W)
-Auckland(A)
-ChristChurch(C)""", justify='left', style='bold green')
-    print(campusOptions)
-    choiceCampus = Prompt.ask("[bold green]Input Choice:", choices=['W', 'A', 'C'])
-    if choiceCampus == 'W':
-        choiceCampus = 'Wellington'
-        return choiceCampus
-    elif choiceCampus == 'A':
-        choiceCampus = 'Auckland'
-        return choiceCampus
-    elif choiceCampus == 'C':
-        choiceCampus = 'ChristChurch'
-        return choiceCampus
-    else:
-        print("Campus Choice was Invalid.")
-        CampusIsValid()
-
-#Prompt to ask if user wants to Go Again        
-def GoAgain(x, y):
-    print("[bold magenta]DO YOU WANT TO " + y + " [bold magenta]AGAIN?")
-    searchAgain = Prompt.ask("[bold green]Please input Y or N", choices=['Y', 'N'])
-    if searchAgain == 'Y':
-        x()
-    elif searchAgain == 'N':
-        MainMenu()
         
 #Main Menu Function
 def MainMenu():
@@ -78,13 +34,14 @@ def MainMenu():
 DELETE STUDENT (D)
 SHOW STUDENTS (S)
 SEARCH STUDENT (F)
-ADD STUDENT TO COURSE(C)
+ADD STUDENT TO COURSE (C)
+ADD A COURSE TO TEACHER (T)
 
 Type EXIT to quit the application.
         """, justify='center', style='blue')
     menu = Panel(options, title="[bold green]Main Menu")
     print(menu)
-    userChoice = Prompt.ask("[bold green]Enter Your Choice[/bold green]", choices=["A", "D", "S", "F", "EXIT", 'C'])
+    userChoice = Prompt.ask("[bold green]Enter Your Choice[/bold green]", choices=["A", "D", "S", "F", "EXIT", 'C', 'T'])
     if userChoice == 'A':
         AddStudent()
     elif userChoice == 'D':
@@ -95,6 +52,10 @@ Type EXIT to quit the application.
         SearchStudents()
     elif userChoice == 'C':
         Teaching()
+        GoAgain(Teaching, 'ADD A STUDENT TO A COURSE', MainMenu)
+    elif userChoice == 'T':
+        AddCourseToTeacher()
+        GoAgain(AddCourseToTeacher, 'ADD A COURSE TO A TEACHER', MainMenu)
     elif userChoice == 'EXIT':
         updatedDataframe = ToDataframe(students)
         UpdateTxt(updatedDataframe, studentTable)
@@ -123,7 +84,7 @@ def AddStudent():
     newCampus = CampusIsValid()
     students.append(Student(newfname, newlname, newemail, newCampus, None))
     print("[bold green]Your Record has been added")
-    GoAgain(AddStudent, "ADD A RECORD")
+    GoAgain(AddStudent, "ADD A RECORD", MainMenu)
 
 def DeleteStudent():
     toDelete = Prompt.ask("[bold blue]Enter StudentID to Delete: ")
@@ -134,7 +95,7 @@ def DeleteStudent():
     else:
         students.pop(index)
         print("""[bold red]RECORD DELETED""")
-        GoAgain(DeleteStudent, "DELETE A STUDENT")
+        GoAgain(DeleteStudent, "DELETE A STUDENT", MainMenu)
     
 def ShowStudents():
     options = Text("""
@@ -156,7 +117,7 @@ SHOW ALL STUDENTS BY CAMPUS (C)
         QuickSort(students, Student.GetCampus, 0, len(students)-1)
     print("[bold green]Here are your sorted records:")
     MakeTable(students)
-    GoAgain(ShowStudents, 'SORT')
+    GoAgain(ShowStudents, 'SORT', MainMenu)
 
 def SearchStudents():
     options = Text("""
@@ -166,19 +127,19 @@ SEARCH STUDENT BY LAST NAME (L)
         """, justify='center', style='blue')
     menu = Panel(options, title="[bold green]STUDENT SEARCH MENU")
     print(menu)
-    userChoice = Prompt.ask("[bold green]Please make a selection:  ", choices=['I', 'F', 'L'])
+    userChoice = Prompt.ask("[bold green]Please make a selection", choices=['I', 'F', 'L'])
     index = 0
     if userChoice == 'I':
-        searchTarget = Prompt.ask("[bold green]Please input the ID to Search:  ")
-        index = LinearSearch(students, len(students)-1, Student.GetStudentID, searchTarget)
+        searchTarget = Prompt.ask("[bold green]Please input the ID to Search")
+        index = LinearSearch(students, len(students), Student.GetStudentID, searchTarget)
     elif userChoice == 'F':
-        searchTarget = Prompt.ask("[bold green]Please input the First Name to Search:  ")
-        index = LinearSearch(students, len(students)-1, Student.GetFirstName, searchTarget)
+        searchTarget = Prompt.ask("[bold green]Please input the First Name to Search")
+        index = LinearSearch(students, len(students), Student.GetFirstName, searchTarget)
     elif userChoice == 'L':
-        searchTarget = Prompt.ask("[bold green]Please input the Last Name to Search:  ")
-        index = LinearSearch(students, len(students)-1, Student.GetLastName, searchTarget)
+        searchTarget = Prompt.ask("[bold green]Please input the Last Name to Search")
+        index = LinearSearch(students, len(students), Student.GetLastName, searchTarget)
     print("[bold magenta]Your Record is: [/bold magenta]" + str(IndexIsValid(students, index)))
-    GoAgain(SearchStudents, 'SEARCH')
+    GoAgain(SearchStudents, 'SEARCH', MainMenu)
 
 Main()
 
