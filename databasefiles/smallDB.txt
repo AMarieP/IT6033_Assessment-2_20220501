@@ -1,0 +1,10 @@
+Ethan,Brown,ethan.brown@example.com,Auckland
+Olivia,Taylor,olivia.taylor@example.com,Wellington
+Noah,Miller,noah.miller@example.com,Christchurch
+Ava,Anderson,ava.anderson@example.com,Auckland
+Liam,Thomas,liam.thomas@example.com,Wellington
+Isabella,Jackson,isabella.jackson@example.com,Christchurch
+James,White,james.white@example.com,Auckland
+Emma,Harris,emma.harris@example.com,Wellington
+Logan,Martin,logan.martin@example.com,Christchurch
+Mia,Lee,mia.lee@example.com,Auckland
