@@ -1,27 +1,9 @@
-#Creates Array of Student Objects from .txt using Pandas
-import pandas as pd
 from rich import print
-from rich.console import Console
-from rich.table import Table
 import datetime
 
-
 #Get the Year
-today = datetime.date.today()
-year = str(today.year)
-
-#Reads the txt file and turns to dataframe
-studentTable = "databasefiles\sampleStudentDatabasecopy.txt"
-results = []
-with open(studentTable) as f:
-    line = f.readline()
-    while line:
-        results.append(line.strip().split(","))
-        line = f.readline()
-f.close()
-myTableData = pd.DataFrame(results, columns = ["fname", "lname", 'email', 'campus'])
-#Generate a StudentID
-myTableData["studentID"] = myTableData['fname'].str.slice(start=0, stop=3) + myTableData['lname'].str.slice(start=0, stop=3) + year
+year = str(datetime.date.today().year)
+# year = str(today.year)
 
 #Function to generate a student ID for a new student
 def GenerateID(studentID, fname, lname):
@@ -58,19 +40,11 @@ class Student:
     def GetStudentID(self):
         return self.studentID
 
-#Turn back to Students
-students = [Student(**kwargs) for kwargs in myTableData.to_dict(orient='records')]
+#Extend Student Class to Add Teaching
 
+class Courses(Student):
+    def __init__(self):
+        self.courses = []
 
-
-
-def MakeTable(array):
-    singleRecord = Table(title="Student Record" )
-    singleRecord.add_column('Student ID', style="blue", header_style='bold blue')
-    singleRecord.add_column('First Name', style="green")
-    singleRecord.add_column('Last Name', style="green")
-    singleRecord.add_column('Email', style="yellow")
-    singleRecord.add_column('Campus', justify="right", style="magenta", header_style='bold magenta')
-    studentTable.add_row(self.studentID, self.fname, self.lname, self.email, self.campus)
-    console = Console()
-    console.print(studentTable)
+    def AddToCourse(self, course):
+        self.names.append(course)

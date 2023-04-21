@@ -1,6 +1,10 @@
-from BinarySearch import BinarySearch
+from LinearSearch import LinearSearch
 from QuickSort import QuickSort
-from Student import students, Student
+from Student import Student
+from Database import students, UpdateTxt, studentTable, myTableData, ToDataframe
+from Teaching import Teaching
+from Teacher import Teacher
+from Course import Course
 
 #Rich is used to Style things in Terminal
 from rich import print
@@ -74,12 +78,13 @@ def MainMenu():
 DELETE STUDENT (D)
 SHOW STUDENTS (S)
 SEARCH STUDENT (F)
+ADD STUDENT TO COURSE(C)
 
 Type EXIT to quit the application.
         """, justify='center', style='blue')
     menu = Panel(options, title="[bold green]Main Menu")
     print(menu)
-    userChoice = Prompt.ask("[bold green]Enter Your Choice[/bold green]", choices=["A", "D", "S", "F", "EXIT"])
+    userChoice = Prompt.ask("[bold green]Enter Your Choice[/bold green]", choices=["A", "D", "S", "F", "EXIT", 'C'])
     if userChoice == 'A':
         AddStudent()
     elif userChoice == 'D':
@@ -88,7 +93,11 @@ Type EXIT to quit the application.
         ShowStudents()
     elif userChoice == 'F':
         SearchStudents()
+    elif userChoice == 'C':
+        Teaching()
     elif userChoice == 'EXIT':
+        updatedDataframe = ToDataframe(students)
+        UpdateTxt(updatedDataframe, studentTable)
         return False
 
 #Show/ Manipulate Record Functions
@@ -118,7 +127,7 @@ def AddStudent():
 
 def DeleteStudent():
     toDelete = Prompt.ask("[bold blue]Enter StudentID to Delete: ")
-    index = BinarySearch(students, 0, len(students)-1, toDelete, Student.GetStudentID)
+    index = LinearSearch(students, len(students)-1, Student.GetStudentID)
     if IndexIsValid(students, index) == "No Such Record Exists":
         print("[bold red]Student ID Does Not Exist")
         DeleteStudent()
@@ -161,13 +170,13 @@ SEARCH STUDENT BY LAST NAME (L)
     index = 0
     if userChoice == 'I':
         searchTarget = Prompt.ask("[bold green]Please input the ID to Search:  ")
-        index = BinarySearch(students, 0, len(students)-1, searchTarget, Student.GetStudentID)
+        index = LinearSearch(students, len(students)-1, Student.GetStudentID, searchTarget)
     elif userChoice == 'F':
         searchTarget = Prompt.ask("[bold green]Please input the First Name to Search:  ")
-        index = BinarySearch(students, 0, len(students)-1, searchTarget, Student.GetFirstName)
+        index = LinearSearch(students, len(students)-1, Student.GetFirstName, searchTarget)
     elif userChoice == 'L':
         searchTarget = Prompt.ask("[bold green]Please input the Last Name to Search:  ")
-        BinarySearch(students, 0, len(students)-1, searchTarget, Student.GetLastName)
+        index = LinearSearch(students, len(students)-1, Student.GetLastName, searchTarget)
     print("[bold magenta]Your Record is: [/bold magenta]" + str(IndexIsValid(students, index)))
     GoAgain(SearchStudents, 'SEARCH')
 
